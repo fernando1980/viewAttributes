@@ -9,7 +9,7 @@
 [general]
 name=view atributes
 qgisMinimumVersion=2.0
-description=Ver atributos de una seleccion
+description=Show attributes of a field selected stored in a shapefile.
 version=0.1
 author=Fernando Requena
 email=fernandorequena1980@gmail.com
