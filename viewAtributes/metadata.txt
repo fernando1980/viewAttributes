@@ -14,7 +14,7 @@ version=0.1
 author=Fernando Requena
 email=fernandorequena1980@gmail.com
 
-about=Ver atributos e imagenes de una seleccion 
+about=Plugin developed to show the attributes of a expropiated field stored in a shapefile.
 
 tracker=https://github.com/fernando1980/viewAttributes/issues
 repository=https://github.com/fernando1980/viewAttributes

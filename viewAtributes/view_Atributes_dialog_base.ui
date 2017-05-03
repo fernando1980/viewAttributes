@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>viewAtributesDialogBase</class>
  <widget class="QDialog" name="viewAtributesDialogBase">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -9,8 +12,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>670</width>
-    <height>361</height>
+    <width>926</width>
+    <height>521</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -287,8 +290,8 @@
     <rect>
      <x>400</x>
      <y>90</y>
-     <width>256</width>
-     <height>192</height>
+     <width>512</width>
+     <height>384</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -301,8 +304,8 @@
   <widget class="QLabel" name="tb_foTo">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>290</y>
+     <x>640</x>
+     <y>490</y>
      <width>52</width>
      <height>14</height>
     </rect>
@@ -317,8 +320,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>310</y>
+     <x>720</x>
+     <y>490</y>
      <width>90</width>
      <height>23</height>
     </rect>
@@ -333,8 +336,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>310</y>
+     <x>510</x>
+     <y>490</y>
      <width>90</width>
      <height>23</height>
     </rect>
@@ -346,8 +349,8 @@
   <widget class="QPushButton" name="pB_exit">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>330</y>
+     <x>830</x>
+     <y>10</y>
      <width>90</width>
      <height>23</height>
     </rect>

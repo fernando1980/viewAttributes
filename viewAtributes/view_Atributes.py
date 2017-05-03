@@ -33,11 +33,14 @@ import resources
 # Import the code for the dialog
 from view_Atributes_dialog import viewAtributesDialog
 import os.path
+from qgis.utils import reloadPlugin
 
 
 
 class viewAtributes:
     """QGIS Plugin Implementation."""
+    nFoto = 1
+    
 
     def __init__(self, iface):
         """Constructor.
@@ -183,6 +186,8 @@ class viewAtributes:
             self.iface.removeToolBarIcon(action)
         # remove the toolbar
         del self.toolbar
+        # disconnect form signal of the canvas
+        #QObject.disconnect(self.iface.mapCanvas(), SIGNAL("renderComplete(QPainter*)"), self.renderTest)
 
     def run(self):
         """Run method that performs all the real work"""
@@ -214,7 +219,8 @@ class viewAtributes:
                 # Do something useful here - delete the line containing pass and
                 # substitute with your code.
                 pass
-
+    
+    @QtCore.pyqtSlot() # signal with no arguments
     def selectParcel(self):
         # Selected layer name
         selectedLayer = self.dlg.cb_listLayers.currentText()
@@ -238,26 +244,29 @@ class viewAtributes:
             self.dlg.tb_refCat.setText(refCat)
             supParce = str(selected_feature["AREA"])
             self.dlg.tb_supPar.setText(supParce)
-            supExpro = str(selected_feature["supExpro"])
+            supExpro = str(selected_feature["S_EXPRO"])
             self.dlg.tb_supExpro.setText(supExpro)
-            #norden = str(selected_feature["N_ORDEN"])
-            self.dlg.tb_norden.setText("")
-            #tit_nombre = str(selected_feature["TIT_NOMBRE"])
-            self.dlg.tb_titnombre.setText("")
-            #tit_tlf = str(selected_feature["TIT_TLF"])
-            self.dlg.tb_tittlf.setText("")
+            norden = str(selected_feature["N_ORDEN"])
+            self.dlg.tb_norden.setText(norden)
+            tit_nombre = str(selected_feature["TIT_NOMBRE"].encode('ISO-8859-1'))
+            self.dlg.tb_titnombre.setText(tit_nombre)
+            tit_tlf = str(selected_feature["TIT_TLF"])
+            self.dlg.tb_tittlf.setText(tit_tlf)
             fotoField = self.dlg.fotoField
             fotoField.setScaledContents(True)
             myfilepath = self.iface.activeLayer().dataProvider().dataSourceUri()
+            myprojectpath = QgsProject.instance().homePath()
             (dirPath, nameFile) = os.path.split(myfilepath)
-            foto = str(selected_feature["Foto1"])
-            fotoPath = dirPath + foto
+            foto = str(selected_feature["FOTO1"])
+            foto_str = foto[1:]
+            #fotoPath = dirPath + foto
+            fotoPath = myprojectpath + foto_str
             # Load the image
             fotoField.setPixmap(QPixmap(fotoPath))
             global nFoto
             nFoto = 1
             global Foto
-            Foto = "Foto" + str(nFoto)
+            Foto = "FOTO" + str(nFoto)
             if foto != "NULL":
                 self.dlg.pB_sig.setEnabled(True)
                 self.dlg.pB_ant.setEnabled(True)
@@ -267,59 +276,75 @@ class viewAtributes:
                 self.dlg.pB_ant.setEnabled(False)
                 self.dlg.tb_foTo.setText("")
         except:
+            #reloadPlugin('viewAtributes')
             global nFoto
             nFoto = 1
-            msgBox = QtGui.QMessageBox()
-            msgBox.setText("Debes seleccionar una parcela.")
-            msgBox.exec_()
-
+            #msgBox = QtGui.QMessageBox()
+            #msgBox.setText("Debes seleccionar una parcela.")
+            #msgBox.exec_()
+    
     def fotoSig(self):
         global nFoto
         nFoto = nFoto + 1
-        global Foto
-        Foto = "Foto" + str(nFoto)
+        #global Foto
+        Foto = "FOTO" + str(nFoto)
         layer = self.iface.activeLayer()
         selected_feature = layer.selectedFeatures()[0]
         myfilepath= self.iface.activeLayer().dataProvider().dataSourceUri()
+        myprojectpath = QgsProject.instance().homePath()
         (dirPath,nameFile) = os.path.split(myfilepath)
         foto = str(selected_feature[Foto])
+        foto_str = foto[1:]
         if foto != "NULL":
             self.dlg.tb_foTo.setText(Foto)
-            fotoPath = dirPath + foto
+            fotoPath = myprojectpath + foto_str
             fotoField = self.dlg.fotoField
             fotoField.setScaledContents(True)
             # Load the image
             fotoField.setPixmap(QPixmap(fotoPath))
         else:
             nFoto = nFoto - 1
-
+    
+    @QtCore.pyqtSlot() # signal with no arguments
     def fotoAnt(self):
         global nFoto
         if (nFoto > 1):
             nFoto = nFoto - 1
-            global Foto
-            Foto = "Foto" + str(nFoto)
+            #global Foto
+            Foto = "FOTO" + str(nFoto)
             self.dlg.tb_foTo.setText(Foto)
 
             layer = self.iface.activeLayer()
             selected_feature = layer.selectedFeatures()[0]
             myfilepath= self.iface.activeLayer().dataProvider().dataSourceUri()
+            myprojectpath = QgsProject.instance().homePath()
             (dirPath,nameFile) = os.path.split(myfilepath)
 
             fotoField = self.dlg.fotoField
             fotoField.setScaledContents(True)
             foto = str(selected_feature[Foto])
-            fotoPath = dirPath + foto
+            foto_str = foto[1:]
+            fotoPath = myprojectpath + foto_str
             # Load the image
             fotoField.setPixmap(QPixmap(fotoPath))
 
     def exit(self):
-        global nFoto
-        nFoto = 1
-        self.dlg.fotoField.setPixmap(QPixmap(""))
-        self.dlg.tb_refCat.setText("")
-        self.dlg.tb_supPar.setText("")
-        self.dlg.tb_supExpro.setText("")
-        self.dlg.tb_foTo.setText("")
-        self.dlg.cb_listLayers.clear()
-        self.dlg.close()
+        try:
+            #         global nFoto
+            #         nFoto = 1
+            #         self.dlg.fotoField.setPixmap(QPixmap(""))
+            #         self.dlg.tb_refCat.setText("")
+            #         self.dlg.tb_supPar.setText("")
+            #         self.dlg.tb_supExpro.setText("")
+            #         self.dlg.tb_foTo.setText("")
+            #         self.dlg.cb_listLayers.clear()
+            mc = self.iface.mapCanvas()
+            layer = self.iface.activeLayer()
+            layer.removeSelection()
+            mc.refresh()
+            reloadPlugin('viewAtributes')
+            self.dlg.close()
+        except:
+            reloadPlugin('viewAtributes')
+            self.dlg.close()
+            
