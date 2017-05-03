@@ -2,7 +2,7 @@ View Attributes
 
 Plugin developed to show the attributes of a expropiated field stored in a shapefile.
 
-This plugin has beeen created to show in a form, information about a field. The information is showed in a form. The information shows order's number, Cadastral Reference, Proprietary name, Phone's proprietary, Cadastral surface and expropiated surface. Also, it shows some pictures of the field.
+This plugin has beeen created to show information about a field. The information is showed in a form. The information shows order's number, Cadastral Reference, Proprietary name, Phone's proprietary, Cadastral surface and expropiated surface. Also, it shows some pictures of the field.
 
 To work properly, it is needed that the information will be stored in a shapefile with these fields:
 
