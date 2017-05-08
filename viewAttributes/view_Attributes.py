@@ -340,8 +340,8 @@ class viewAttributes:
             layer = self.iface.activeLayer()
             layer.removeSelection()
             mc.refresh()
-            reloadPlugin('viewAtributes')
+            reloadPlugin('viewAttributes')
             self.dlg.close()
         except:
-            reloadPlugin('viewAtributes')
+            reloadPlugin('viewAttributes')
             self.dlg.close()
