@@ -9,12 +9,12 @@
 [general]
 name=View Attributes
 qgisMinimumVersion=2.0
-description=Show attributes of a field selected stored in a shapefile.
+description=Show attributes of an expropiated field selected stored in a shapefile.
 version=0.1c
 author=Fernando Requena
 email=fernandorequena1980@gmail.com
 
-about=Plugin developed to show the attributes of a expropiated field stored in a shapefile.
+about=This plugin has beeen created to show information about a field. The information is showed in a form. The information shows order's number, Cadastral Reference, Proprietary name, Phone's proprietary, Cadastral surface and expropiated surface. Also, it shows some pictures of the field. To work properly, it is needed that the information will be stored in a shapefile with these fields: REFCAT(Cadastral Reference of the field);AREA(Field surface);S_EXPRO(Expropiated surface);N_ORDEN(Number of the expropiated field);TIT_NOMBRE(Propietary's name);TIT_TLF(Propietary's telephone number);FOTON(*)Picture of the field (N is the number of the picture, for example FOTO1);(*) This field stores the relative path of the image. The image must be stored in the same folder as the project file (.qgs)
 
 tracker=https://github.com/fernando1980/viewAttributes/issues
 repository=https://github.com/fernando1980/viewAttributes
