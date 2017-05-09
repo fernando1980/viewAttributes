@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/plugins/viewAttributes" >
-        <file>icon.png</file>
-    </qresource>
-</RCC>
